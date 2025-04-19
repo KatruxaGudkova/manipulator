@@ -312,7 +312,7 @@ function antColony(setXPoints, setYPoints, l, m, n) {
 
     for (let i = 0; i < manipulators.length; i++) {
       const m = manipulators[i];
-      const color = m.moment === min_0 ? 'limegreen' : 'gray';
+      const color = m.moment === min_0 ? 'limegreen' : 'rgba(128, 128, 128, 0.2)';
 
       drawLink(ctx, m.coords[0].x, m.coords[0].y, m.coords[1].x, m.coords[1].y, color);
       drawLink(ctx, m.coords[1].x, m.coords[1].y, m.coords[2].x, m.coords[2].y, color);
