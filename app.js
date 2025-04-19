@@ -212,9 +212,12 @@ function antColony(setXPoints, setYPoints, l, m, n) {
     //Вероятности
     let p1 = 0.3, p2 = 0.6, p3 = 0.1;
     //Коэф-т отложения феромона
-    const p_u = 0.8;
-    //Коэф-т испарения феромона
-    const q_u = 0.2;
+    // const p_u = 0.8;
+    // //Коэф-т испарения феромона
+    // const q_u = 0.2;
+
+    const p_u = parseFloat(document.getElementById('p_u').value);
+    const q_u = parseFloat(document.getElementById('q_u').value);
 
     for (let i = 0; i < n; i++) {
       console.log(' -----------------------------');
