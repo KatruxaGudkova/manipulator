@@ -1,8 +1,11 @@
 //Отрисовка сетки внутри поля канвас
 function drawGrid(ctx, width, height, gridSpacing) {
   const scale = 1;  // Масштабирование для более удобной работы
-  const offsetX = 50;  // Смещение по оси X (по умолчанию)
-  const offsetY = 300;  // Смещение по оси Y (по умолчанию)
+  // const offsetX = 50;  // Смещение по оси X (по умолчанию)
+  // const offsetY = 300;  // Смещение по оси Y (по умолчанию)
+
+  const offsetX = canvas.width / 2 - 200;
+  const offsetY = canvas.height / 2 + 100;
 
   // Отрисовка горизонтальных и вертикальных линий
   ctx.beginPath();
@@ -98,8 +101,11 @@ function drawOM(ctx, x0, y0, x4, y4) {
   const scale = 1;
 
   // Смещение, чтобы видеть всё в центре
-  const offsetX = 50;
-  const offsetY = 300;
+  // const offsetX = 50;
+  // const offsetY = 300;
+  const offsetX = canvas.width / 2 - 200;
+  const offsetY = canvas.height / 2 + 100;
+
 
   const canvasX = x => x * scale + offsetX;
   const canvasY = y => offsetY - y * scale; // инверсия Y для привычной системы координат
@@ -133,8 +139,11 @@ function drawOM(ctx, x0, y0, x4, y4) {
 //Функция отрисовки звеньев
 function drawLink(ctx, x1, y1, x2, y2, color) {
   const scale = 1;
-  const offsetX = 50;
-  const offsetY = 300;
+  // const offsetX = 50;
+  // const offsetY = 300;
+
+  const offsetX = canvas.width / 2 - 200;
+  const offsetY = canvas.height / 2 + 100;
 
   const canvasX = x => x * scale + offsetX;
   const canvasY = y => offsetY - y * scale;
@@ -164,6 +173,10 @@ function antColony(setXPoints, setYPoints, l, m, n) {
   let min_0 = 1_000_000; //минимум для вычисления минимального суммарного момента в вершинах манипулятора
   let count = 0; //счетчик для вычисления среднего минимального суммарного момента
   let bad = 0; //количество не простроенных манипуляторов
+  let bestManipulator = null;
+  const manipulators = []; // массив для хранения координат и значений момента
+
+
 
   console.log('\nСумма длин всех звеньев = ', d);
 
@@ -234,7 +247,7 @@ function antColony(setXPoints, setYPoints, l, m, n) {
       setYPoints[1] = setYPoints[0] + l1 * Math.sin(toRadians(alpha1));
 
       //Построение первого звена
-      drawLink(ctx, setXPoints[0], setYPoints[0], setXPoints[1], setYPoints[1], 'orange');
+      // drawLink(ctx, setXPoints[0], setYPoints[0], setXPoints[1], setYPoints[1], 'orange');
 
 
       const phi1 = findPhi(setXPoints[1], setYPoints[1], setXPoints[4], setYPoints[4]);
@@ -247,7 +260,7 @@ function antColony(setXPoints, setYPoints, l, m, n) {
       setYPoints[2] = setYPoints[1] + l2 * Math.sin(toRadians(betta1));
 
       //Построение второго звена
-      drawLink(ctx, setXPoints[1], setYPoints[1], setXPoints[2], setYPoints[2], 'red');
+      // drawLink(ctx, setXPoints[1], setYPoints[1], setXPoints[2], setYPoints[2], 'red');
 
       const dist = Math.sqrt(
         (setXPoints[4] - setXPoints[2]) ** 2 +
@@ -262,21 +275,58 @@ function antColony(setXPoints, setYPoints, l, m, n) {
         setXPoints[3] = intersection.x;
         setYPoints[3] = intersection.y;
         //Построение третьего звена
-        drawLink(ctx, setXPoints[2], setYPoints[2], setXPoints[3], setYPoints[3], 'blue');
-        //Построение четвертого звена
-        drawLink(ctx, setXPoints[3], setYPoints[3], setXPoints[4], setYPoints[4], 'purple');
+        // drawLink(ctx, setXPoints[2], setYPoints[2], setXPoints[3], setYPoints[3], 'blue');
+        // //Построение четвертого звена
+        // drawLink(ctx, setXPoints[3], setYPoints[3], setXPoints[4], setYPoints[4], 'purple');
         mmm = minMoment(m, g, setXPoints[0], setXPoints[1], setXPoints[2], setXPoints[3], setXPoints[4]);
         count += mmm;
+
+        //Записываем все положения манипулятора
+        manipulators.push({
+          coords: [
+            { x: setXPoints[0], y: setYPoints[0] },
+            { x: setXPoints[1], y: setYPoints[1] },
+            { x: setXPoints[2], y: setYPoints[2] },
+            { x: setXPoints[3], y: setYPoints[3] },
+            { x: setXPoints[4], y: setYPoints[4] },
+          ],
+          moment: mmm,
+        });
 
         if (mmm < min_0) {
           min_0 = mmm;
           console.log('\nМинимальный критерий = ', min_0);
+
+
+          // // Сохраняем координаты лучшего манипулятора
+          // bestManipulator = {
+          //   x: [...setXPoints],
+          //   y: [...setYPoints]
+          // };
         }
       }
     }
 
     // Параметры: контекст, ширина, высота канваса, расстояние между линиями сетки
     drawGrid(ctx, canvas.width, canvas.height, 30); // 30 - расстояние между линиями сетки
+
+    for (let i = 0; i < manipulators.length; i++) {
+      const m = manipulators[i];
+      const color = m.moment === min_0 ? 'limegreen' : 'gray';
+
+      drawLink(ctx, m.coords[0].x, m.coords[0].y, m.coords[1].x, m.coords[1].y, color);
+      drawLink(ctx, m.coords[1].x, m.coords[1].y, m.coords[2].x, m.coords[2].y, color);
+      drawLink(ctx, m.coords[2].x, m.coords[2].y, m.coords[3].x, m.coords[3].y, color);
+      drawLink(ctx, m.coords[3].x, m.coords[3].y, m.coords[4].x, m.coords[4].y, color);
+    }
+
+
+    // if (bestManipulator) {
+    //   drawLink(ctx, bestManipulator.x[0], bestManipulator.y[0], bestManipulator.x[1], bestManipulator.y[1], 'green');
+    //   drawLink(ctx, bestManipulator.x[1], bestManipulator.y[1], bestManipulator.x[2], bestManipulator.y[2], 'green');
+    //   drawLink(ctx, bestManipulator.x[2], bestManipulator.y[2], bestManipulator.x[3], bestManipulator.y[3], 'green');
+    //   drawLink(ctx, bestManipulator.x[3], bestManipulator.y[3], bestManipulator.x[4], bestManipulator.y[4], 'green');
+    // }
     console.log('\np1 = ', p1, ' p2 = ', p2, ' p3 = ', p3);
     console.log('\nСредний суммарный момент в вершинах звеньев манипулятора = ', count / (n - bad));
     console.log('Количество непостроенных манипуляторов = ', bad);
