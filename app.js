@@ -1,5 +1,3 @@
-
-//style="border:1px solid #ff0000;"
 //Отрисовка сетки внутри поля канвас
 function drawGrid(ctx, width, height, gridSpacing) {
   const scale = 1;  // Масштабирование для более удобной работы
@@ -46,8 +44,6 @@ function drawGrid(ctx, width, height, gridSpacing) {
   ctx.fillText('Y', offsetX + 5, 20);  // Подпись для оси Y
 }
 
-
-
 //Функция проверки на число 
 function turnIntoNumber(str) {
   return !isNaN(parseFloat(str)) && isFinite(str);
@@ -72,7 +68,6 @@ function findPhi(x1, y1, x2, y2) {
   return phi;
 }
 
-
 //Функция решения пересечения окружностей
 function intersectionOfCircles(l1, l2, x0, y0, x2, y2) {
   const dist = Math.sqrt((x2 - x0) ** 2 + (y2 - y0) ** 2);
@@ -87,8 +82,6 @@ function intersectionOfCircles(l1, l2, x0, y0, x2, y2) {
 
   return { x: x1, y: y1 };
 }
-
-
 
 //Функция проверки на число взаимодействующая с пользователем
 function checkNumber(value, message) {
@@ -154,44 +147,7 @@ function drawLink(ctx, x1, y1, x2, y2, color) {
   ctx.stroke();
 }
 
-
-
-
-
-
-// // Ввод координат начальной точки
-// let x0 = prompt('Введите координату x начальной точки фиксации:');
-// x0 = checkNumber(x0, 'Введите координату x начальной точки фиксации:');
-// setXPoints[0] = x0;
-
-// let y0 = prompt('\nВведите координату y начальной точки фиксации:');
-// y0 = checkNumber(y0, 'Введите координату y начальной точки фиксации:');
-// setYPoints[0] = y0;
-
-// // Ввод координат конечной точки
-// let x4 = prompt('\nВведите координату x конечной точки схвата:');
-// x4 = checkNumber(x4, 'Введите координату x конечной точки схвата:');
-// setXPoints[4] = x4;
-
-// let y4 = prompt('\nВведите координату y конечной точки схвата:');
-// y4 = checkNumber(y4, 'Введите координату y конечной точки схвата:');
-// setYPoints[4] = y4;
-
-// // Ввод длины звена
-// let l = prompt('\nВведите длину одного звена манипулятора:');
-// l = checkNumber(l, 'Введите длину одного звена манипулятора:');
-
-// // Ввод массы звена
-// let m = prompt('Введите массу одного звена манипулятора:');
-// m = checkNumber(m, 'Введите массу одного звена манипулятора:');
-
-// // Ввод количества манипуляторов
-// let n = prompt('\nВведите количество манипуляторов:');
-// n = checkNumber(n, 'Введите количество манипуляторов:');
-
 //Функция перевода в радианы
-
-
 function toRadians(degrees) {
   return degrees * Math.PI / 180;
 }
@@ -199,7 +155,6 @@ function toRadians(degrees) {
 function randomInRange(min, max) {
   return Math.random() * (max - min) + min;
 }
-
 
 //Основная функция муравьиной колонии
 function antColony(setXPoints, setYPoints, l, m, n) {
@@ -215,6 +170,9 @@ function antColony(setXPoints, setYPoints, l, m, n) {
 
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
+  // Очищаем предыдущую отрисовку
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   // // Параметры: контекст, ширина, высота канваса, расстояние между линиями сетки
   // drawGrid(ctx, canvas.width, canvas.height, 30); // 30 - расстояние между линиями сетки
   drawOM(ctx, setXPoints[0], setYPoints[0], setXPoints[4], setYPoints[4]);
