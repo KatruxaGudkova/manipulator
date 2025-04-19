@@ -173,7 +173,6 @@ function antColony(setXPoints, setYPoints, l, m, n) {
   let min_0 = 1_000_000; //минимум для вычисления минимального суммарного момента в вершинах манипулятора
   let count = 0; //счетчик для вычисления среднего минимального суммарного момента
   let bad = 0; //количество не простроенных манипуляторов
-  let bestManipulator = null;
   const manipulators = []; // массив для хранения координат и значений момента
 
 
@@ -183,11 +182,10 @@ function antColony(setXPoints, setYPoints, l, m, n) {
 
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
+
   // Очищаем предыдущую отрисовку
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // // Параметры: контекст, ширина, высота канваса, расстояние между линиями сетки
-  // drawGrid(ctx, canvas.width, canvas.height, 30); // 30 - расстояние между линиями сетки
   drawOM(ctx, setXPoints[0], setYPoints[0], setXPoints[4], setYPoints[4]);
 
   const OM = Math.hypot(setXPoints[4] - setXPoints[0], setYPoints[4] - setYPoints[0]);
@@ -209,9 +207,13 @@ function antColony(setXPoints, setYPoints, l, m, n) {
     const betta = phi + (180 - (180 * OM / d));
     const diapason = betta - alpha;
 
+    //Количество областей разбиения
     const partitions = 3;
+    //Вероятности
     let p1 = 0.3, p2 = 0.6, p3 = 0.1;
+    //Коэф-т отложения феромона
     const p_u = 0.8;
+    //Коэф-т испарения феромона
     const q_u = 0.2;
 
     for (let i = 0; i < n; i++) {
@@ -243,6 +245,7 @@ function antColony(setXPoints, setYPoints, l, m, n) {
 
       console.log('alpha1 = ', alpha1);
 
+      //Нахождение координат конца первого звена (x1, y1)
       setXPoints[1] = setXPoints[0] + l1 * Math.cos(toRadians(alpha1));
       setYPoints[1] = setYPoints[0] + l1 * Math.sin(toRadians(alpha1));
 
@@ -256,6 +259,7 @@ function antColony(setXPoints, setYPoints, l, m, n) {
       const betta1 = randomInRange(phi1, phi1 + (90 - (90 * OM / d)));
       console.log('betta1 = ', betta1);
 
+      //Нахождение координат конца первого звена (x2, y2)
       setXPoints[2] = setXPoints[1] + l2 * Math.cos(toRadians(betta1));
       setYPoints[2] = setYPoints[1] + l2 * Math.sin(toRadians(betta1));
 
@@ -271,9 +275,11 @@ function antColony(setXPoints, setYPoints, l, m, n) {
       if (dist > l3 + l4) {
         bad++;
       } else {
+        //Пересечение двух окружностей
         const intersection = intersectionOfCircles(l3, l4, setXPoints[2], setYPoints[2], setXPoints[4], setYPoints[4]);
         setXPoints[3] = intersection.x;
         setYPoints[3] = intersection.y;
+
         //Построение третьего звена
         // drawLink(ctx, setXPoints[2], setYPoints[2], setXPoints[3], setYPoints[3], 'blue');
         // //Построение четвертого звена
@@ -296,13 +302,6 @@ function antColony(setXPoints, setYPoints, l, m, n) {
         if (mmm < min_0) {
           min_0 = mmm;
           console.log('\nМинимальный критерий = ', min_0);
-
-
-          // // Сохраняем координаты лучшего манипулятора
-          // bestManipulator = {
-          //   x: [...setXPoints],
-          //   y: [...setYPoints]
-          // };
         }
       }
     }
@@ -320,13 +319,6 @@ function antColony(setXPoints, setYPoints, l, m, n) {
       drawLink(ctx, m.coords[3].x, m.coords[3].y, m.coords[4].x, m.coords[4].y, color);
     }
 
-
-    // if (bestManipulator) {
-    //   drawLink(ctx, bestManipulator.x[0], bestManipulator.y[0], bestManipulator.x[1], bestManipulator.y[1], 'green');
-    //   drawLink(ctx, bestManipulator.x[1], bestManipulator.y[1], bestManipulator.x[2], bestManipulator.y[2], 'green');
-    //   drawLink(ctx, bestManipulator.x[2], bestManipulator.y[2], bestManipulator.x[3], bestManipulator.y[3], 'green');
-    //   drawLink(ctx, bestManipulator.x[3], bestManipulator.y[3], bestManipulator.x[4], bestManipulator.y[4], 'green');
-    // }
     console.log('\np1 = ', p1, ' p2 = ', p2, ' p3 = ', p3);
     console.log('\nСредний суммарный момент в вершинах звеньев манипулятора = ', count / (n - bad));
     console.log('Количество непостроенных манипуляторов = ', bad);
