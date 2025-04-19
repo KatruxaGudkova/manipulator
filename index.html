@@ -23,6 +23,31 @@
 </head>
 
 <body>
+  <form id="coordinates-form">
+    <label for="x0">Координата X начальной точки фиксации:</label>
+    <input type="number" id="x0" name="x0"><br><br>
+
+    <label for="y0">Координата Y начальной точки фиксации:</label>
+    <input type="number" id="y0" name="y0"><br><br>
+
+    <label for="x4">Координата X конечной точки схвата:</label>
+    <input type="number" id="x4" name="x4"><br><br>
+
+    <label for="y4">Координата Y конечной точки схвата:</label>
+    <input type="number" id="y4" name="y4"><br><br>
+
+    <label for="l">Длина одного звена манипулятора:</label>
+    <input type="number" id="l" name="l"><br><br>
+
+    <label for="m">Масса одного звена манипулятора:</label>
+    <input type="number" id="m" name="m"><br><br>
+
+    <label for="n">Количество манипуляторов:</label>
+    <input type="number" id="n" name="n"><br><br>
+
+    <button type="submit">Отправить</button>
+  </form>
+
   <canvas id="canvas" width="600" height="400"></canvas>
 
   <script>
@@ -34,8 +59,6 @@
       const offsetX = 50;  // Смещение по оси X (по умолчанию)
       const offsetY = 300;  // Смещение по оси Y (по умолчанию)
 
-      // const canvasX = x => x * scale + offsetX;
-      // const canvasY = y => offsetY - y * scale; // инверсия Y для привычной системы координат
       // Отрисовка горизонтальных и вертикальных линий
       ctx.beginPath();
       ctx.strokeStyle = '#d3d3d3';  // Цвет сетки
@@ -118,7 +141,7 @@
       return { x: x1, y: y1 };
     }
 
-    //Заданные переменные, координаты начальной точки фиксации и конечной точки схвата
+
 
     //Функция проверки на число взаимодействующая с пользователем
     function checkNumber(value, message) {
@@ -189,35 +212,37 @@
     const setXPoints = [0, 0, 0, 0, 0];
     const setYPoints = [0, 0, 0, 0, 0];
 
-    // Ввод координат начальной точки
-    let x0 = prompt('Введите координату x начальной точки фиксации:');
-    x0 = checkNumber(x0, 'Введите координату x начальной точки фиксации:');
-    setXPoints[0] = x0;
 
-    let y0 = prompt('\nВведите координату y начальной точки фиксации:');
-    y0 = checkNumber(y0, 'Введите координату y начальной точки фиксации:');
-    setYPoints[0] = y0;
 
-    // Ввод координат конечной точки
-    let x4 = prompt('\nВведите координату x конечной точки схвата:');
-    x4 = checkNumber(x4, 'Введите координату x конечной точки схвата:');
-    setXPoints[4] = x4;
+    // // Ввод координат начальной точки
+    // let x0 = prompt('Введите координату x начальной точки фиксации:');
+    // x0 = checkNumber(x0, 'Введите координату x начальной точки фиксации:');
+    // setXPoints[0] = x0;
 
-    let y4 = prompt('\nВведите координату y конечной точки схвата:');
-    y4 = checkNumber(y4, 'Введите координату y конечной точки схвата:');
-    setYPoints[4] = y4;
+    // let y0 = prompt('\nВведите координату y начальной точки фиксации:');
+    // y0 = checkNumber(y0, 'Введите координату y начальной точки фиксации:');
+    // setYPoints[0] = y0;
 
-    // Ввод длины звена
-    let l = prompt('\nВведите длину одного звена манипулятора:');
-    l = checkNumber(l, 'Введите длину одного звена манипулятора:');
+    // // Ввод координат конечной точки
+    // let x4 = prompt('\nВведите координату x конечной точки схвата:');
+    // x4 = checkNumber(x4, 'Введите координату x конечной точки схвата:');
+    // setXPoints[4] = x4;
 
-    // Ввод массы звена
-    let m = prompt('Введите массу одного звена манипулятора:');
-    m = checkNumber(m, 'Введите массу одного звена манипулятора:');
+    // let y4 = prompt('\nВведите координату y конечной точки схвата:');
+    // y4 = checkNumber(y4, 'Введите координату y конечной точки схвата:');
+    // setYPoints[4] = y4;
 
-    // Ввод количества манипуляторов
-    let n = prompt('\nВведите количество манипуляторов:');
-    n = checkNumber(n, 'Введите количество манипуляторов:');
+    // // Ввод длины звена
+    // let l = prompt('\nВведите длину одного звена манипулятора:');
+    // l = checkNumber(l, 'Введите длину одного звена манипулятора:');
+
+    // // Ввод массы звена
+    // let m = prompt('Введите массу одного звена манипулятора:');
+    // m = checkNumber(m, 'Введите массу одного звена манипулятора:');
+
+    // // Ввод количества манипуляторов
+    // let n = prompt('\nВведите количество манипуляторов:');
+    // n = checkNumber(n, 'Введите количество манипуляторов:');
 
     //Функция перевода в радианы
     function toRadians(degrees) {
@@ -344,8 +369,6 @@
             }
           }
         }
-        // // Параметры: контекст, ширина, высота канваса, расстояние между линиями сетки
-        // drawGrid(ctx, canvas.width, canvas.height, 30); // 30 - расстояние между линиями сетки
 
         // Параметры: контекст, ширина, высота канваса, расстояние между линиями сетки
         drawGrid(ctx, canvas.width, canvas.height, 30); // 30 - расстояние между линиями сетки
@@ -355,7 +378,46 @@
       }
     }
 
-    antColony(setXPoints, setYPoints, l, m, n);
+
+
+
+
+    //Взаимодействие с формой
+    document.getElementById('coordinates-form').addEventListener('submit', function (event) {
+      event.preventDefault(); // предотвращаем отправку формы, чтобы обработать данные вручную
+
+      // Получаем значения из инпутов
+      let x0 = parseFloat(document.getElementById('x0').value);
+      let y0 = parseFloat(document.getElementById('y0').value);
+      let x4 = parseFloat(document.getElementById('x4').value);
+      let y4 = parseFloat(document.getElementById('y4').value);
+      let l = parseFloat(document.getElementById('l').value);
+      let m = parseFloat(document.getElementById('m').value);
+      let n = parseInt(document.getElementById('n').value);
+
+      // Проверяем, что все значения введены правильно
+      if (isNaN(x0) || isNaN(y0) || isNaN(x4) || isNaN(y4) || isNaN(l) || isNaN(m) || isNaN(n)) {
+        alert("Пожалуйста, введите корректные значения.");
+        return;
+      }
+
+      // Записываем значения в массивы (или куда нужно)
+      setXPoints[0] = x0;
+      setYPoints[0] = y0;
+      setXPoints[4] = x4;
+      setYPoints[4] = y4;
+
+      // Дальше можно продолжить с этими значениями
+      console.log(`Координаты начальной точки: (${x0}, ${y0})`);
+      console.log(`Координаты конечной точки: (${x4}, ${y4})`);
+      console.log(`Длина звена: ${l}`);
+      console.log(`Масса звена: ${m}`);
+      console.log(`Количество манипуляторов: ${n}`);
+
+
+      antColony(setXPoints, setYPoints, l, m, n);
+    });
+
 
   </script>
 </body>
