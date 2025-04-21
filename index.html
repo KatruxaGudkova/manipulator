@@ -6,53 +6,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Четырёхзвенный манипулятор</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
-
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
-
-    /* canvas {
-      border: 1px solid #ff3f3f;
-    } */
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <form id="coordinates-form">
-    <label for="x0">Координата X начальной точки фиксации:</label>
-    <input type="number" id="x0" name="x0"><br><br>
+    <div class="form-row">
+      <label for="x0">Координата X начальной точки фиксации:</label>
+      <input type="text" id="x0" name="x0">
+    </div>
 
-    <label for="y0">Координата Y начальной точки фиксации:</label>
-    <input type="number" id="y0" name="y0"><br><br>
+    <div class="form-row">
+      <label for="y0">Координата Y начальной точки фиксации:</label>
+      <input type="text" id="y0" name="y0">
+    </div>
 
-    <label for="x4">Координата X конечной точки схвата:</label>
-    <input type="number" id="x4" name="x4"><br><br>
+    <div class="form-row">
+      <label for="x4">Координата X конечной точки схвата:</label>
+      <input type="text" id="x4" name="x4">
+    </div>
 
-    <label for="y4">Координата Y конечной точки схвата:</label>
-    <input type="number" id="y4" name="y4"><br><br>
+    <div class="form-row">
+      <label for="y4">Координата Y конечной точки схвата:</label>
+      <input type="text" id="y4" name="y4">
+    </div>
 
-    <label for="l">Длина одного звена манипулятора:</label>
-    <input type="number" id="l" name="l"><br><br>
+    <div class="form-row">
+      <label for="l">Длина одного звена манипулятора:</label>
+      <input type="text" id="l" name="l">
+    </div>
 
-    <label for="m">Масса одного звена манипулятора:</label>
-    <input type="number" id="m" name="m"><br><br>
+    <div class="form-row">
+      <label for="m">Масса одного звена манипулятора:</label>
+      <input type="text" id="m" name="m">
+    </div>
 
-    <label for="n">Количество манипуляторов:</label>
-    <input type="number" id="n" name="n"><br><br>
+    <div class="form-row">
+      <label for="n">Количество манипуляторов:</label>
+      <input type="text" id="n" name="n">
+    </div>
 
-    <label for="p_u">Коэф-т отложения феромона:</label>
-    <input type="text" id="p_u" name="p_u"><br><br>
+    <div class="form-row">
+      <label for="p_u">Коэф-т отложения феромона:</label>
+      <input type="text" id="p_u" name="p_u">
+    </div>
 
-    <label for="q_u">Коэф-т испарения феромона:</label>
-    <input type="text" id="q_u" name="q_u"><br><br>
+    <div class="form-row">
+      <label for="q_u">Коэф-т испарения феромона:</label>
+      <input type="text" id="q_u" name="q_u">
+    </div>
 
-    <button type="submit">Отправить</button>
+
+    <button type="submit">ПОСТРОИТЬ МАНИПУЛЯТОР</button>
   </form>
 
   <canvas id="canvas" width="700" height="400"></canvas>
