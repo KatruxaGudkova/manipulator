@@ -1,10 +1,35 @@
 body {
+  position: relative; 
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
   background-color: #353535;
+  /* два фона: первый — 1.png, второй — 2.png */
+  background-image: url('img/1.png'), url('img/2.png'), url('img/3.png'), url('img/5.png'), url('img/6.png');
+
+  /* Одинаково для каждого фонового слоя: 
+     первый — right top, 
+     второй — left bottom */
+  background-position: right top, left bottom, top left, top center, bottom center;
+
+  /* Не повторять ни один из фонов */
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+
+  /* Размеры: первый — auto, второй — contain */
+  background-size: auto, auto, auto, auto, auto;
+}
+
+.title_text{
+  color: #ffffff;
+
+  /* text-align: right; */
+  font-family: 'Bounded', sans-serif;
+  font-size: 18px;
+  text-shadow:
+  5px 5px 5px rgba(0, 0, 0, 0.7),
+ -1px -1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* canvas {

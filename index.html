@@ -10,7 +10,11 @@
 </head>
 
 <body>
+
   <form id="coordinates-form">
+    <div class="title_text">
+      <p>Определение оптимального <br />положения звеньев манипулятора <br />используя вероятностный алгоритм</p>
+    </div>
     <div class="form-row">
       <label for="x0">Координата X начальной точки фиксации:</label>
       <input type="text" id="x0" name="x0">
@@ -56,13 +60,11 @@
       <input type="text" id="q_u" name="q_u">
     </div>
 
-
     <button type="submit">ПОСТРОИТЬ МАНИПУЛЯТОР</button>
   </form>
 
   <canvas id="canvas" width="700" height="400"></canvas>
   <script src="app.js"></script>
-
 
 </body>
 
