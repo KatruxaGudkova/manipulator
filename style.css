@@ -85,6 +85,7 @@ input[type="text"]:focus {
   outline: none;
   border-color: #000000;
 }
+
 button {
   color: #353535;
   align-self: flex-end;
@@ -92,15 +93,30 @@ button {
   height: 30px;
   border-radius: 8px;
   border: none;
-  background-color: rgb(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.3);
   font-family: 'Bounded', sans-serif;
   font-size: 10px;
-   /* Внешняя и внутренняя тень */
-   box-shadow:
-   8px 8px 8px rgba(0, 0, 0, 0.2);      /* внешняя */
- 
- transition: box-shadow 0.3s ease;
+  cursor: pointer; /* Меняем курсор на руку */
+  
+  /* Внешняя тень */
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.2);
+  
+  /* Плавный переход */
+  transition: all 0.2s ease;
+}
 
+/* Эффект при наведении */
+button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.02);
+  box-shadow: 10px 10px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Эффект при нажатии */
+button:active {
+  transform: scale(0.98);
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
 }
 #result {
   top: 20px;
